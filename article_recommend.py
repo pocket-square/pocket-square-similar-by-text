@@ -4,21 +4,7 @@ from sklearn.metrics.pairwise import linear_kernel
 from sklearn.metrics.pairwise import cosine_similarity
 from bs4 import BeautifulSoup
 import urllib2
-
-article_file = open('articles.json', 'r')
-article_map = json.loads(article_file.read())
-article_texts = []
-article_titles = []
-for l in article_map.keys():
-    try:
-        f = open('articles/' + l + '.txt', 'r')
-        article_texts.append(f.read())
-        article_titles.append(article_map[l]['resolved_title'])
-        f.close()
-    except Exception:
-        print 'something went wrong'
-
-article_file.close()
+import re
 
 
 def find_similar(article_texts, post, count):
@@ -30,7 +16,25 @@ def find_similar(article_texts, post, count):
     related_docs_indices = cosine_similarities.argsort()[-count:]
     return related_docs_indices
 
-article_indices = find_similar(article_texts, 0, 10)
+# article_indices = find_similar(article_texts, 0, 10)
+#
+# for ind in reversed(article_indices):
+#     print article_titles[ind]
 
-for ind in reversed(article_indices):
-    print article_titles[ind]
+
+def fetch_text(url):
+    response = urllib2.urlopen(url)
+    text = response.read()
+    text = BeautifulSoup(text)
+    to_extract = text.findAll('script')
+    for item in to_extract:
+        item.extract()
+    to_extract = text.findAll('style')
+    for item in to_extract:
+        item.extract()
+
+    text = text.get_text()
+    text = re.sub('(\n)+', '\n', text)
+
+    re.sub("\n(\n)*", "\n", text)
+    return text.encode('utf-8')
