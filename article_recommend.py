@@ -22,9 +22,7 @@ def find_similar(article_texts, post, count):
 #     print article_titles[ind]
 
 
-def fetch_text(url):
-    response = urllib2.urlopen(url)
-    text = response.read()
+def fetch_text(text):
     text = BeautifulSoup(text)
     to_extract = text.findAll('script')
     for item in to_extract:

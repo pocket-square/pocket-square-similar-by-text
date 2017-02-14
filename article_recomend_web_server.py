@@ -9,16 +9,20 @@ app = Flask(__name__)
 
 @app.route('/<user_id>/<text_id>/similar_by_text')
 def similar_by_text(user_id, text_id):
-    request = requests.get('http://188.166.174.189:28103/articles/' + user_id + '/unread')
+    # http://188.166.174.189:28103/article{?page,size,sort}
+    request = requests.get('http://188.166.174.189:28103/article')
     # request = requests.get('http://pocket_square_articles:8080/articles/' + user_id )
     response = request.json()
 
     article_texts = []
     article_metadata = []
-    for elem in response[:100]:
+    for elem in response['_embedded']['article']:
         try:
+            if 'content' not in elem:
+                continue
             article_metadata.append(elem)
-            article_texts.append(fetch_text(elem['url']))
+            article_texts.append(fetch_text(elem['content']))
+            del elem['content']
             print 'one articles fetched'
         except Exception:
             print 'something went wrong'
@@ -32,4 +36,4 @@ def similar_by_text(user_id, text_id):
 
 
 if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0', port=5000)
+    app.run(debug=True, host='0.0.0.0', port=5001)
