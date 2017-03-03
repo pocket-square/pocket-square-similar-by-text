@@ -1,0 +1,9 @@
+= HOWTO: run service
+
+== Endpoints
+
+GET to http://<host>:<port>/{user_id}/{text_id}/similar_by_text - find articles from list of unread articles of user with id={user_id} which are similar to article with id={text_id}.
+
+== Service locations
+
+Development instance - 188.166.174.189:28105

@@ -1,0 +1,13 @@
+= pocket-square-similar-by-text
+
+Microservice for finding articles similar by their texts.
+
+TravisCI - https://travis-ci.org/pocket-square/pocket-square-similar-by-text/
+
+DockerHub - https://hub.docker.com/r/pocketsquare/pocket-square-similar-by-text/
+
+== Documentation
+
+link:src/docs/howto-start-docker.adoc[HOWTO: start service as docker container]
+
+link:src/docs/howto-run-service.adoc[HOWTO: run service]

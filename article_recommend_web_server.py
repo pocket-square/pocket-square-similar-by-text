@@ -9,9 +9,7 @@ app = Flask(__name__)
 
 @app.route('/<user_id>/<text_id>/similar_by_text')
 def similar_by_text(user_id, text_id):
-    # http://188.166.174.189:28103/article{?page,size,sort}
-    request = requests.get('http://188.166.174.189:28103/article/byUserId/' + user_id + '/unread?page=0&size=20')
-    # request = requests.get('http://pocket_square_articles:8080/articles/' + user_id )
+    request = requests.get('http://pocket_square_articles:8080/article/byUserId/' + user_id + '/unread?page=0&size=20')
     response = request.json()
 
     article_texts = []
@@ -39,4 +37,4 @@ def similar_by_text(user_id, text_id):
 
 
 if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0', port=5001)
+    app.run(host='0.0.0.0')

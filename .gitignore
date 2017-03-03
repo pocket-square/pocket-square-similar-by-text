@@ -7,3 +7,6 @@ out/
 
 # Mac #
 .DS_Store
+
+# Python #
+*.pyc
