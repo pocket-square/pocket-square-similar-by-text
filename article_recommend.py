@@ -2,24 +2,17 @@ import json
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import linear_kernel
 from sklearn.metrics.pairwise import cosine_similarity
+from sklearn.feature_extraction.text import CountVectorizer
 from bs4 import BeautifulSoup
 import urllib2
 import re
 
 
-def find_similar(article_texts, post, count):
-    tfidf = TfidfVectorizer().fit_transform(article_texts)
-    # print type(tfidf)
-    # pairwise_similarity = tfidf * tfidf.T
-    cosine_similarities = linear_kernel(tfidf[post:post+1], tfidf).flatten()
-    # print pairwise_similarity.A
-    related_docs_indices = cosine_similarities.argsort()[-count:]
-    return related_docs_indices
-
-# article_indices = find_similar(article_texts, 0, 10)
-#
-# for ind in reversed(article_indices):
-#     print article_titles[ind]
+def find_similar(articles, post_ind, count):
+    tfidf = TfidfVectorizer(stop_words='english').fit_transform(articles)
+    cosine_dist = cosine_similarity(tfidf[post_ind], tfidf).flatten()
+    ind_dist_arr = sorted(enumerate(cosine_dist), reverse=True, key=lambda x: x[1])[:count]
+    return ind_dist_arr
 
 
 def fetch_text(text):
