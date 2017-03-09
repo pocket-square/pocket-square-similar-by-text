@@ -28,9 +28,10 @@ def similar_by_text(user_id, text_id):
         except Exception:
             print 'something went wrong'
 
-    indices = find_similar(article_texts, target_index, 10)
+    ind_dist_arr = find_similar(article_texts, target_index, 10)
     recommended_articles = []
-    for ind in reversed(indices):
+    for ind, dist in ind_dist_arr:
+        article_metadata[ind]['distance'] = dist
         recommended_articles.append(article_metadata[ind])
 
     return json.dumps(recommended_articles)
