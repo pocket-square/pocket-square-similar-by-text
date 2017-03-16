@@ -5,7 +5,7 @@
 [source,shell]
 ----
 docker ps -a
-docker kill pocket_square_similar_by_text; docker rm pocket_square_similar_by_text
+docker kill pocket-square-similar-by-text; docker rm pocket-square-similar-by-text
 ----
 
 == Start service
@@ -13,5 +13,5 @@ docker kill pocket_square_similar_by_text; docker rm pocket_square_similar_by_te
 [source,shell]
 ----
 docker pull pocketsquare/pocket-square-similar-by-text:$TAG
-docker run -dit --name pocket_square_similar_by_text --link pocket_square_articles -p 28105:5000 pocketsquare/pocket-square-similar-by-text:$TAG
+docker run -dit --name pocket-square-similar-by-text --link pocket-square-articles -p 28105:5000 pocketsquare/pocket-square-similar-by-text:$TAG
 ----

@@ -9,7 +9,7 @@ app = Flask(__name__)
 
 @app.route('/<user_id>/<text_id>/similar_by_text')
 def similar_by_text(user_id, text_id):
-    request = requests.get('http://pocket_square_articles:8080/article/byUserId/' + user_id + '/unread?page=0&size=20')
+    request = requests.get('http://pocket-square-articles:8080/article/byUserId/' + user_id + '/unread?page=0&size=20')
     response = request.json()
 
     article_texts = []
